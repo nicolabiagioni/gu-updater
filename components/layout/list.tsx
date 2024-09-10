@@ -15,7 +15,7 @@ type ListProps = {
 
 export function List({ items, isProcessing }: ListProps) {
   if (items.length === 0 && !isProcessing) {
-    return null; // Don't render anything if there are no items and not processing
+    return null;
   }
 
   return (
@@ -25,36 +25,38 @@ export function List({ items, isProcessing }: ListProps) {
       </CardHeader>
       <CardContent>
         {items.length > 0 ? (
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-24 text-neutral-600 dark:text-neutral-400">Status</TableHead>
-                <TableHead className="text-neutral-600 dark:text-neutral-400">Token ID</TableHead>
-                <TableHead className="text-neutral-600 dark:text-neutral-400">Details</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {items.map((item, index) => (
-                <TableRow key={`${item.identifier}-${index}`}>
-                  <TableCell>
-                    {item.success ? (
-                      <CheckCircle2 className="h-5 w-5 text-green-500" aria-label="Success" />
-                    ) : (
-                      <XCircle className="h-5 w-5 text-red-500" aria-label="Failure" />
-                    )}
-                  </TableCell>
-                  <TableCell className="font-mono">{item.identifier}</TableCell>
-                  <TableCell>{item.message}</TableCell>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-24">Status</TableHead>
+                  <TableHead>Token ID</TableHead>
+                  <TableHead>Details</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {items.map((item, index) => (
+                  <TableRow key={`${item.identifier}-${index}`} className="hover:bg-neutral-50 dark:hover:bg-neutral-900">
+                    <TableCell>
+                      {item.success ? (
+                        <CheckCircle2 className="h-5 w-5 text-green-500" aria-label="Success" />
+                      ) : (
+                        <XCircle className="h-5 w-5 text-red-500" aria-label="Failure" />
+                      )}
+                    </TableCell>
+                    <TableCell className="font-mono">{item.identifier}</TableCell>
+                    <TableCell>{item.message}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         ) : (
           <p className="text-neutral-600 dark:text-neutral-400 text-center mt-4">
-            No NFTs processed yet.
+            {isProcessing ? "Processing NFTs..." : "No NFTs processed yet."}
           </p>
         )}
       </CardContent>
     </Card>
-  )
+  );
 }

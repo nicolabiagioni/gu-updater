@@ -30,9 +30,9 @@ export default function SubmitForm({
 
   return (
     <Card className="w-full bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800">
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-semibold text-center">Settings</CardTitle>
-        <CardDescription className="text-center text-neutral-500 dark:text-neutral-400">
+      <CardHeader>
+        <CardTitle className="text-xl font-semibold">Settings</CardTitle>
+        <CardDescription className="text-sm text-neutral-500 dark:text-neutral-400">
           Enter your OpenSea API key and collection details
         </CardDescription>
       </CardHeader>
@@ -46,10 +46,10 @@ export default function SubmitForm({
             isLoading={isLoading}
             handleInputChange={handleInputChange}
           />
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <Button
               type="submit"
-              className={`w-full transition-all duration-300 ${
+              className={`flex-1 transition-all duration-300 ${
                 isLoading
                   ? 'bg-neutral-300 text-neutral-600 cursor-not-allowed'
                   : 'bg-black hover:bg-neutral-800 text-white dark:bg-white dark:hover:bg-neutral-200 dark:text-black'
@@ -61,12 +61,11 @@ export default function SubmitForm({
               ) : null}
               {isLoading ? "Processing..." : isSuccess ? "Submit" : "Save Settings"}
             </Button>
-
             {isSuccess && (
               <Button
                 type="button"
                 onClick={resetForm}
-                className="w-full bg-red-100 hover:bg-red-200 text-red-700 border border-red-300"
+                className="flex-1 bg-red-100 hover:bg-red-200 text-red-700 border border-red-300"
               >
                 <FiTrash2 className="mr-2 h-5 w-5" />
                 Reset
