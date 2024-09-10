@@ -57,7 +57,7 @@ export async function submitFormData({
   }
 
   const processedNFTs: NFTItem[] = []
-  const totalNFTs = 0
+  let totalNFTs = 0
   const decoder = new TextDecoder()
   let buffer = ''
 
@@ -73,7 +73,7 @@ export async function submitFormData({
       if (line.trim()) {
         try {
           const data = JSON.parse(line);
-          handleStreamedData(data, setProgress, onListUpdate, setIsSuccess, setIsProcessing, processedNFTs, totalNFTs);
+          totalNFTs = handleStreamedData(data, setProgress, onListUpdate, setIsSuccess, setIsProcessing, processedNFTs, totalNFTs);
         } catch (error) {
           console.error('Error parsing JSON:', error, 'Line:', line);
         }
@@ -100,7 +100,7 @@ function handleStreamedData(
   setIsProcessing: (isProcessing: boolean) => void,
   processedNFTs: NFTItem[],
   totalNFTs: number
-) {
+): number {
   switch (data.type) {
     case 'fetchProgress':
       if (data.totalNFTs !== undefined) {
@@ -136,4 +136,5 @@ function handleStreamedData(
     case 'error':
       throw new Error(data.message ?? 'Unknown error occurred')
   }
+  return totalNFTs;
 }
