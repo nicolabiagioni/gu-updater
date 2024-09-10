@@ -125,10 +125,11 @@ function handleStreamedData(
       }
       break
     case 'complete':
+      const successfulNFTs = processedNFTs.filter(nft => nft.success).length;
       setIsSuccess(true)
       toast({
         title: "Update Complete",
-        description: `Successfully processed ${data.processedNFTs ?? 0} out of ${data.totalNFTs ?? 0} NFTs.`,
+        description: `Successfully processed ${successfulNFTs} out of ${data.totalNFTs ?? 0} NFTs.`,
         duration: 5000,
       })
       setIsProcessing(false)

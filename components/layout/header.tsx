@@ -25,12 +25,12 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex-1" />
-        <h1 className="text-xl font-semibold text-center flex-1">
+        <h1 className="text-xl font-semibold">
           Genuine Updater
         </h1>
-        <nav className="flex-1 flex justify-end">
+        <div className="flex-1 flex justify-end">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="icon" className="bg-background" aria-label="Change theme">
@@ -59,7 +59,7 @@ export default function Header() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </nav>
+        </div>
       </div>
     </header>
   )
