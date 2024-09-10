@@ -19,13 +19,14 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow flex flex-col lg:flex-row gap-8 p-4 sm:p-8 lg:p-12">
-        <div className="w-full lg:w-1/3 xl:w-1/4">
-          <h1 className="sr-only">Genuine Updater API Configuration</h1>
-          <SubmitForm onListUpdate={handleListUpdate} setIsProcessing={setIsProcessing} />
-        </div>
-        <div className="w-full lg:w-2/3 xl:w-3/4">
-          <List items={processedNFTs} isProcessing={isProcessing} />
+      <main className="flex-grow p-4 sm:p-8 lg:p-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div className="lg:col-span-4">
+            <SubmitForm onListUpdate={handleListUpdate} setIsProcessing={setIsProcessing} />
+          </div>
+          <div className="lg:col-span-8">
+            <List items={processedNFTs} isProcessing={isProcessing} />
+          </div>
         </div>
       </main>
       <Footer />
