@@ -33,9 +33,9 @@ export default function SubmitForm({
   return (
     <Card className="w-full bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-semibold text-center">API Configuration</CardTitle>
+        <CardTitle className="text-2xl font-semibold text-center">Settings</CardTitle>
         <CardDescription className="text-center text-neutral-500 dark:text-neutral-400">
-          Enter your OpenSea API key and blockchain details
+          Enter your OpenSea API key and collection details
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-4">

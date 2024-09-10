@@ -20,9 +20,9 @@ export default function FormFields({
   handleInputChange
 }: FormFieldsProps) {
   const fields = [
-    { key: "apiKey", label: "OpenSea API Key", placeholder: "Insert your OpenSea API Key" },
-    { key: "contractAddress", label: "Contract Address", placeholder: "Insert the contract address" },
-    { key: "ownerAddress", label: "Owner Address", placeholder: "Insert the owner's address" }
+    { key: "apiKey", label: "OpenSea API Key", placeholder: "Enter your OpenSea API key" },
+    { key: "contractAddress", label: "Collection Contract Address", placeholder: "Enter the collection's contract address" },
+    { key: "ownerAddress", label: "Owner's Wallet Address", placeholder: "Enter the owner's wallet address" }
   ]
 
   return (

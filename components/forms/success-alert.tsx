@@ -11,7 +11,7 @@ export default function SuccessAlert() {
         </AlertTitle>
       </div>
       <AlertDescription className="text-green-600 dark:text-green-400 text-sm">
-        Your API configuration has been successfully saved and is ready to use.
+        Settings saved. Ready to start the refresh process.
       </AlertDescription>
     </Alert>
   )
