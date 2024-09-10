@@ -1,12 +1,11 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { NFTItem } from "@/lib/types"
-import { FiLoader, FiRefreshCw, FiTrash2 } from "react-icons/fi"
+import { FiLoader, FiTrash2 } from "react-icons/fi"
 import FormFields from "./form-fields"
-import SuccessAlert from "./success-alert"
 import useSubmitForm from "./use-submit-form"
 
 export default function SubmitForm({
@@ -26,7 +25,6 @@ export default function SubmitForm({
     progress,
     handleInputChange,
     handleSubmit,
-    handleNewSubmission,
     resetForm
   } = useSubmitForm(onListUpdate, setIsProcessing)
 
@@ -50,21 +48,18 @@ export default function SubmitForm({
           />
           <div className="flex flex-col gap-2">
             <Button
-              type={isSuccess ? "button" : "submit"}
+              type="submit"
               className={`w-full transition-all duration-300 ${
                 isLoading
                   ? 'bg-neutral-300 text-neutral-600 cursor-not-allowed'
                   : 'bg-black hover:bg-neutral-800 text-white dark:bg-white dark:hover:bg-neutral-200 dark:text-black'
               }`}
               disabled={isLoading}
-              onClick={isSuccess ? handleNewSubmission : undefined}
             >
               {isLoading ? (
                 <FiLoader className="mr-2 h-5 w-5 animate-spin" aria-hidden="true" />
-              ) : isSuccess ? (
-                <FiRefreshCw className="mr-2 h-5 w-5" aria-hidden="true" />
               ) : null}
-              {isLoading ? "Processing..." : isSuccess ? "New Submission" : "Submit"}
+              {isLoading ? "Processing..." : isSuccess ? "Submit" : "Save Settings"}
             </Button>
 
             {isSuccess && (
@@ -74,7 +69,7 @@ export default function SubmitForm({
                 className="w-full bg-red-100 hover:bg-red-200 text-red-700 border border-red-300"
               >
                 <FiTrash2 className="mr-2 h-5 w-5" />
-                Reset Form
+                Reset
               </Button>
             )}
           </div>
@@ -84,9 +79,6 @@ export default function SubmitForm({
           )}
         </form>
       </CardContent>
-      <CardFooter className="flex flex-col items-start w-full">
-        {isSuccess && <SuccessAlert />}
-      </CardFooter>
     </Card>
   )
 }

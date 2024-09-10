@@ -64,7 +64,7 @@ export async function submitFormData({
             const newItem: NFTItem = {
               identifier: data.lastProcessed.identifier,
               success: data.lastProcessed.success,
-              message: data.lastProcessed.success ? "Successfully processed" : "Failed to process"
+              message: data.lastProcessed.success ? "Updated" : "Failed"
             }
             processedNFTs = [...processedNFTs, newItem]
             onListUpdate(processedNFTs)
@@ -74,7 +74,7 @@ export async function submitFormData({
         case 'complete':
           setIsSuccess(true)
           toast({
-            title: "Refresh Complete",
+            title: "Update Complete",
             description: `Successfully processed ${data.processedNFTs} out of ${data.totalNFTs} NFTs.`,
             duration: 5000,
           })

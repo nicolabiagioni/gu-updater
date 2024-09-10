@@ -30,7 +30,7 @@ export function List({ items, isProcessing }: ListProps) {
               <TableRow>
                 <TableHead className="w-24 text-neutral-600 dark:text-neutral-400">Status</TableHead>
                 <TableHead className="text-neutral-600 dark:text-neutral-400">Token ID</TableHead>
-                <TableHead className="text-neutral-600 dark:text-neutral-400">Message</TableHead>
+                <TableHead className="text-neutral-600 dark:text-neutral-400">Details</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

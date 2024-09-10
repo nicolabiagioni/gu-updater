@@ -4,7 +4,6 @@ import { loadFromLocalStorage, saveToLocalStorage } from '@/lib/localStorage'
 import { NFTItem } from "@/lib/types"
 import { validateForm } from '@/lib/validators'
 import { useEffect, useState } from 'react'
-import { FiCheckCircle } from "react-icons/fi"
 
 export default function useSubmitForm(
   onListUpdate: (newList: NFTItem[]) => void,
@@ -81,11 +80,9 @@ export default function useSubmitForm(
           setIsSuccess(isSuccess)
           if (isSuccess) {
             toast({
-              title: "Refresh Complete",
-              description: "Successfully processed all NFTs.",
+              title: "Settings Saved",
+              description: "Your configuration has been saved. Click 'Start Refresh' to begin the process.",
               duration: 5000,
-              className: "bg-green-50 dark:bg-green-900 border-green-200 dark:border-green-700",
-              icon: <FiCheckCircle className="h-5 w-5 text-green-500 dark:text-green-400" />,
             })
           }
         },
