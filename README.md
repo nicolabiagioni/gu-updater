@@ -1,19 +1,31 @@
-# Genuine Updater
-
 <div align="center">
-  <img src="./assets/img/logo.svg" alt="Logo" width="80" height="80">
+  <picture>
+    <img src="./assets/img/logo.svg" alt="Logo" width="80" height="80">
+  </picture>
+  <h1>Genuine Updater</h1>
 </div>
 <br />
 
-[![Build Status][build-shield]][build-url]
-[![Version][version-shield]][version-url]
-[![Release][release-shield]][release-url]
-[![Tags][tags-shield]][tags-url]
-[![MIT License][license-shield]][license-url]
+<div align="center">
+  <a href="https://github.com/nicolabiagioni/gu-updater/actions/workflows/ci.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/nicolabiagioni/gu-updater/ci.yml?style=for-the-badge" alt="GitHub Actions Workflow Status" />
+  </a>
+  <a href="https://github.com/nicolabiagioni/gu-updater/releases">
+    <img src="https://img.shields.io/github/v/release/nicolabiagioni/gu-updater?include_prereleases&style=for-the-badge" alt="Version" />
+  </a>
+  <a href="https://github.com/nicolabiagioni/gu-updater/tags">
+    <img src="https://img.shields.io/github/v/tag/nicolabiagioni/gu-updater?style=for-the-badge" alt="Tags" />
+  </a>
+  <a href="https://github.com/nicolabiagioni/gu-updater/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/nicolabiagioni/gu-updater?style=for-the-badge" alt="MIT License" />
+  </a>
+</div>
 
-A Next.js application designed to refresh metadata for your Genuine Undead NFT collection.
-
-[View Demo](https://your-demo-link.com) · [Report Bug](https://github.com/nicolabiagioni/gu-updater/issues) · [Request Feature](https://github.com/nicolabiagioni/gu-updater/issues)
+<p style="display: flex;gap: 1rem;justify-content: center;">
+  <a href="https://your-demo-link.com">View Demo</a>
+  <a href="https://github.com/nicolabiagioni/gu-updater/issues">Report Bug</a>
+  <a href="https://github.com/nicolabiagioni/gu-updater/issues">Request Feature</a>
+</p>
 
 ## Table of Contents
 
@@ -121,12 +133,10 @@ Project Link: [https://github.com/nicolabiagioni/gu-updater](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[build-shield]: https://img.shields.io/github/actions/workflow/status/nicolabiagioni/gu-updater/ci.yml?branch=main&style=for-the-badge
-[build-url]: https://github.com/nicolabiagioni/gu-updater/actions/workflows/ci.yml
-[version-shield]: https://img.shields.io/github/v/release/nicolabiagioni/gu-updater?style=for-the-badge
+[workflow-shield]: https://img.shields.io/github/actions/workflow/status/nicolabiagioni/gu-updater/ci.yml?style=for-the-badge
+[workflow-url]: https://github.com/nicolabiagioni/gu-updater/actions/workflows/ci.yml
+[version-shield]: https://img.shields.io/github/v/release/nicolabiagioni/gu-updater?include_prereleases&style=for-the-badge
 [version-url]: https://github.com/nicolabiagioni/gu-updater/releases/latest
-[release-shield]: https://img.shields.io/github/release-date/nicolabiagioni/gu-updater?style=for-the-badge
-[release-url]: https://github.com/nicolabiagioni/gu-updater/releases
 [tags-shield]: https://img.shields.io/github/v/tag/nicolabiagioni/gu-updater?style=for-the-badge
 [tags-url]: https://github.com/nicolabiagioni/gu-updater/tags
 [license-shield]: https://img.shields.io/github/license/nicolabiagioni/gu-updater?style=for-the-badge
