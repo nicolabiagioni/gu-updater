@@ -1,14 +1,40 @@
 # Genuine Updater
 
-Genuine Updater is a Next.js application designed to refresh metadata for your Genuine Undead NFT collection.
+<div align="center">
+  <img src="./assets/img/logo.svg" alt="Logo" width="80" height="80">
+</div>
+<br />
 
-## Features
+[![Build Status][build-shield]][build-url]
+[![Version][version-shield]][version-url]
+[![MIT License][license-shield]][license-url]
 
-- OpenSea API integration
-- Metadata refresh for Genuine Undead NFTs
-- User-friendly interface for submitting API keys and collection details
-- Real-time progress tracking
-- Dark mode support
+A Next.js application designed to refresh metadata for your Genuine Undead NFT collection.
+
+[View Demo](https://your-demo-link.com) · [Report Bug](https://github.com/nicolabiagioni/gu-updater/issues) · [Request Feature](https://github.com/nicolabiagioni/gu-updater/issues)
+
+## Table of Contents
+
+1. [About](#about)
+2. [Built With](#built-with)
+3. [Getting Started](#getting-started)
+4. [Usage](#usage)
+5. [Roadmap](#roadmap)
+6. [Contributing](#contributing)
+7. [License](#license)
+8. [Contact](#contact)
+9. [Acknowledgments](#acknowledgments)
+
+## About
+
+Genuine Updater is a tool designed to simplify the process of refreshing metadata for Genuine Undead NFT collections. It provides a user-friendly interface for interacting with the OpenSea API and managing your NFT metadata.
+
+## Built With
+
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [OpenSea API](https://docs.opensea.io/)
 
 ## Getting Started
 
@@ -22,8 +48,8 @@ Genuine Updater is a Next.js application designed to refresh metadata for your G
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/genuine-updater.git
-   cd genuine-updater
+   git clone https://github.com/nicolabiagioni/gu-updater.git
+   cd gu-updater
    ```
 
 2. Install dependencies:
@@ -73,3 +99,29 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Tailwind CSS](https://tailwindcss.com/)
 - [shadcn/ui](https://ui.shadcn.com/)
 - [OpenSea API](https://docs.opensea.io/)
+
+## Roadmap
+
+- [x] Initial project setup
+- [x] Basic README structure
+- [x] ESLint and Prettier configuration
+- [x] TypeScript support
+- [ ] Add support for multiple collections
+- [ ] Implement batch processing
+- [ ] Create a user dashboard
+- [ ] Add more detailed analytics
+
+## Contact
+
+Nicol Biagioni - [@0xl34r](https://x.com/0xl34r) - nicolabiagioni@gmail.com
+
+Project Link: [https://github.com/nicolabiagioni/gu-updater](https://github.com/nicolabiagioni/gu-updater)
+
+<!-- MARKDOWN LINKS & IMAGES -->
+
+[build-shield]: https://img.shields.io/github/actions/workflow/status/nicolabiagioni/gu-updater/ci-cd.yml?branch=main&style=for-the-badge
+[build-url]: https://github.com/nicolabiagioni/gu-updater/actions/workflows/ci-cd.yml
+[version-shield]: https://img.shields.io/github/v/release/nicolabiagioni/gu-updater?style=for-the-badge
+[version-url]: https://github.com/nicolabiagioni/gu-updater/releases/latest
+[license-shield]: https://img.shields.io/github/license/nicolabiagioni/gu-updater?style=for-the-badge
+[license-url]: https://github.com/nicolabiagioni/gu-updater/blob/main/LICENSE

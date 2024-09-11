@@ -51,7 +51,7 @@ Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the project maintainer responsible for enforcement via:
 
 - GitHub: [nicolabiagioni](https://github.com/nicolabiagioni)
-- X: [@nicolabiagioni](https://twitter.com/nicolabiagioni)
+- X: [@0xl34r](https://x.com/0xl34r)
 
 All complaints will be reviewed and investigated promptly and fairly.
 

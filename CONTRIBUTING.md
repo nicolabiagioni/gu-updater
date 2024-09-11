@@ -54,6 +54,6 @@ This project uses ESLint and Prettier for code formatting. Please ensure your co
 If you have any questions or need further clarification, don't hesitate to reach out. You can contact the project maintainer via:
 
 - GitHub: [nicolabiagioni](https://github.com/nicolabiagioni)
-- X: [@nicolabiagioni](https://twitter.com/nicolabiagioni)
+- X: [@0xl34r](https://x.com/0xl34r)
 
 Thank you for your interest in improving Genuine Updater!
