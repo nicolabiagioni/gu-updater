@@ -7,6 +7,8 @@
 
 [![Build Status][build-shield]][build-url]
 [![Version][version-shield]][version-url]
+[![Release][release-shield]][release-url]
+[![Tags][tags-shield]][tags-url]
 [![MIT License][license-shield]][license-url]
 
 A Next.js application designed to refresh metadata for your Genuine Undead NFT collection.
@@ -119,9 +121,13 @@ Project Link: [https://github.com/nicolabiagioni/gu-updater](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[build-shield]: https://img.shields.io/github/actions/workflow/status/nicolabiagioni/gu-updater/ci-cd.yml?branch=main&style=for-the-badge
-[build-url]: https://github.com/nicolabiagioni/gu-updater/actions/workflows/ci-cd.yml
+[build-shield]: https://img.shields.io/github/actions/workflow/status/nicolabiagioni/gu-updater/ci.yml?branch=main&style=for-the-badge
+[build-url]: https://github.com/nicolabiagioni/gu-updater/actions/workflows/ci.yml
 [version-shield]: https://img.shields.io/github/v/release/nicolabiagioni/gu-updater?style=for-the-badge
 [version-url]: https://github.com/nicolabiagioni/gu-updater/releases/latest
+[release-shield]: https://img.shields.io/github/release-date/nicolabiagioni/gu-updater?style=for-the-badge
+[release-url]: https://github.com/nicolabiagioni/gu-updater/releases
+[tags-shield]: https://img.shields.io/github/v/tag/nicolabiagioni/gu-updater?style=for-the-badge
+[tags-url]: https://github.com/nicolabiagioni/gu-updater/tags
 [license-shield]: https://img.shields.io/github/license/nicolabiagioni/gu-updater?style=for-the-badge
 [license-url]: https://github.com/nicolabiagioni/gu-updater/blob/main/LICENSE
