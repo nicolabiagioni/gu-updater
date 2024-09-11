@@ -8,8 +8,11 @@ interface StreamedData {
   lastProcessed?: {
     identifier: string;
     success: boolean;
+    error?: string;
   };
   message?: string;
+  successfulRefreshes?: number;  // Add this line
+  failedRefreshes?: number;      // Add this line
 }
 
 type SubmitFormDataParams = {
@@ -104,38 +107,37 @@ function handleStreamedData(
   switch (data.type) {
     case 'fetchProgress':
       if (data.totalNFTs !== undefined) {
-        totalNFTs = data.totalNFTs
+        totalNFTs = data.totalNFTs;
       }
       if (data.processedNFTs !== undefined && totalNFTs > 0) {
-        setProgress((data.processedNFTs / totalNFTs) * 50)
+        setProgress((data.processedNFTs / totalNFTs) * 100);
       }
-      break
+      break;
     case 'refreshProgress':
       if (data.lastProcessed) {
         const newItem: NFTItem = {
           identifier: data.lastProcessed.identifier,
           success: data.lastProcessed.success,
-          message: data.lastProcessed.success ? "Updated" : "Failed"
-        }
-        processedNFTs.push(newItem)
-        onListUpdate([...processedNFTs])
+          message: data.lastProcessed.success ? "Updated" : data.lastProcessed.error || "Failed"
+        };
+        processedNFTs.push(newItem);
+        onListUpdate([...processedNFTs]);
       }
       if (data.processedNFTs !== undefined && totalNFTs > 0) {
-        setProgress(50 + (data.processedNFTs / totalNFTs) * 50)
+        setProgress((data.processedNFTs / totalNFTs) * 100);
       }
-      break
+      break;
     case 'complete':
-      const successfulNFTs = processedNFTs.filter(nft => nft.success).length;
-      setIsSuccess(true)
+      setIsSuccess(true);
       toast({
         title: "Update Complete",
-        description: `Successfully processed ${successfulNFTs} out of ${data.totalNFTs ?? 0} NFTs.`,
+        description: `Successfully processed ${data.successfulRefreshes ?? 0} out of ${data.totalNFTs ?? 0} NFTs. ${data.failedRefreshes ?? 0} NFTs failed to update.`,
         duration: 5000,
-      })
-      setIsProcessing(false)
-      break
+      });
+      setIsProcessing(false);
+      break;
     case 'error':
-      throw new Error(data.message ?? 'Unknown error occurred')
+      throw new Error(data.message ?? 'Unknown error occurred');
   }
   return totalNFTs;
 }
