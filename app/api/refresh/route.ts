@@ -1,9 +1,10 @@
 import { NextRequest } from 'next/server';
 import { setTimeout } from 'timers/promises';
 
-const API_DELAY = 250;
-const REFRESH_DELAY = 15000;
-const BATCH_SIZE = 50;
+const API_DELAY = 250; // ms between API calls
+const BATCH_SIZE = 50; // Number of NFTs to fetch in a batch
+const MAX_RETRIES = 5; // Maximum number of retries for rate limiting errors
+const MAX_NFTS = 10000; // Maximum number of NFTs to fetch
 
 interface OpenSeaNFT {
   identifier: string;
@@ -39,10 +40,32 @@ type ErrorMessage = {
 
 type Message = ProgressMessage | CompleteMessage | ErrorMessage;
 
-async function fetchNFTsByOwner(apiKey: string, chain: string, contractAddress: string, ownerAddress: string, cursor: string | null = null) {
-  const url = `https://api.opensea.io/v2/chain/${chain}/account/${ownerAddress}/nfts?limit=50${cursor ? `&cursor=${cursor}` : ''}`;
+async function fetchWithRetry(url: string, options: RequestInit, retries = MAX_RETRIES): Promise<Response> {
+  try {
+    const response = await fetch(url, options);
+    if (response.status === 429 && retries > 0) {
+      const retryAfter = parseInt(response.headers.get('Retry-After') || '60', 10);
+      console.log(`Rate limited. Retrying after ${retryAfter} seconds. Retries left: ${retries}`);
+      await setTimeout(retryAfter * 1000);
+      return fetchWithRetry(url, options, retries - 1);
+    }
+    return response;
+  } catch (error) {
+    if (retries > 0) {
+      console.log(`Error occurred. Retrying. Retries left: ${retries}`);
+      await setTimeout(API_DELAY);
+      return fetchWithRetry(url, options, retries - 1);
+    }
+    throw error;
+  }
+}
 
-  const response = await fetch(url, {
+async function fetchNFTsByContract(apiKey: string, chain: string, contractAddress: string, ownerAddress: string, cursor: string | null = null) {
+  const url = `https://api.opensea.io/api/v2/chain/${chain}/account/${ownerAddress}/nfts?limit=${BATCH_SIZE}${cursor ? `&cursor=${cursor}` : ''}&contract_address=${contractAddress}`;
+
+  console.log(`Fetching NFTs with URL: ${url}`);
+
+  const response = await fetchWithRetry(url, {
     headers: {
       'X-API-KEY': apiKey,
       'Accept': 'application/json'
@@ -50,15 +73,18 @@ async function fetchNFTsByOwner(apiKey: string, chain: string, contractAddress: 
   });
 
   if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    const errorText = await response.text();
+    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
   }
 
   const data = await response.json();
 
-  // Filter NFTs by the specified contract address
+  // Filter NFTs to ensure they belong to the specified contract
   const filteredNFTs = data.nfts.filter((nft: OpenSeaNFT) =>
     nft.contract.toLowerCase() === contractAddress.toLowerCase()
   );
+
+  console.log(`Fetched ${data.nfts.length} NFTs, filtered to ${filteredNFTs.length}, next cursor: ${data.next}`);
 
   return {
     nfts: filteredNFTs,
@@ -106,53 +132,62 @@ export async function POST(request: NextRequest) {
       let processedNFTs = 0;
       let successfulRefreshes = 0;
       let failedRefreshes = 0;
+      let previousCursor: string | null = null;
 
       do {
-        const result = await fetchNFTsByOwner(apiKey, chain, contractAddress, ownerAddress, cursor);
-        allNFTs = allNFTs.concat(result.nfts);
-        cursor = result.next;
-        totalNFTs = allNFTs.length;
+        try {
+          const result = await fetchNFTsByContract(apiKey, chain, contractAddress, ownerAddress, cursor);
+          allNFTs = allNFTs.concat(result.nfts);
+          previousCursor = cursor;
+          cursor = result.next;
+          totalNFTs = allNFTs.length;
 
-        await sendMessage({ type: 'fetchProgress', totalNFTs, processedNFTs } as ProgressMessage);
+          console.log(`Fetched batch. Total NFTs: ${totalNFTs}, Cursor: ${cursor}`);
 
-        if (cursor && allNFTs.length < 1600) {
-          await setTimeout(API_DELAY);
-        } else {
-          break; // Exit the loop if we've reached 1600 NFTs or there's no more cursor
-        }
-      } while (cursor);
+          await sendMessage({ type: 'fetchProgress', totalNFTs, processedNFTs } as ProgressMessage);
 
-      // Process NFTs in batches
-      for (let i = 0; i < allNFTs.length; i += BATCH_SIZE) {
-        const batch = allNFTs.slice(i, i + BATCH_SIZE);
-
-        for (const nft of batch) {
-          try {
-            await refreshNFT(apiKey, chain, contractAddress, nft.identifier);
-            processedNFTs++;
-            successfulRefreshes++;
-            await sendMessage({
-              type: 'refreshProgress',
-              totalNFTs,
-              processedNFTs,
-              lastProcessed: { success: true, identifier: nft.identifier }
-            } as ProgressMessage);
-          } catch (error) {
-            processedNFTs++;
-            failedRefreshes++;
-            await sendMessage({
-              type: 'refreshProgress',
-              totalNFTs,
-              processedNFTs,
-              lastProcessed: { success: false, identifier: nft.identifier, error }
-            } as ProgressMessage);
+          if (cursor && cursor !== previousCursor && totalNFTs < MAX_NFTS && result.nfts.length > 0) {
+            await setTimeout(API_DELAY);
+          } else {
+            console.log(`Stopping fetch. Cursor: ${cursor}, Total NFTs: ${totalNFTs}`);
+            break;
           }
+        } catch (error) {
+          console.error('Error fetching NFTs:', error);
+          await sendMessage({ type: 'error', message: error instanceof Error ? error.message : 'An unknown error occurred while fetching NFTs' } as ErrorMessage);
+          break;
         }
+      } while (cursor && cursor !== previousCursor && totalNFTs < MAX_NFTS);
 
-        if (i + BATCH_SIZE < allNFTs.length) {
-          await setTimeout(REFRESH_DELAY);
+      console.log(`Fetch complete. Total NFTs: ${totalNFTs}`);
+
+      // Process NFTs
+      for (const nft of allNFTs) {
+        try {
+          await refreshNFT(apiKey, chain, contractAddress, nft.identifier);
+          processedNFTs++;
+          successfulRefreshes++;
+          await sendMessage({
+            type: 'refreshProgress',
+            totalNFTs,
+            processedNFTs,
+            lastProcessed: { success: true, identifier: nft.identifier }
+          } as ProgressMessage);
+        } catch (error) {
+          processedNFTs++;
+          failedRefreshes++;
+          console.error(`Error refreshing NFT ${nft.identifier}:`, error);
+          await sendMessage({
+            type: 'refreshProgress',
+            totalNFTs,
+            processedNFTs,
+            lastProcessed: { success: false, identifier: nft.identifier, error: error instanceof Error ? error.message : String(error) }
+          } as ProgressMessage);
         }
+        await setTimeout(API_DELAY);
       }
+
+      console.log(`Refresh complete. Processed: ${processedNFTs}, Successful: ${successfulRefreshes}, Failed: ${failedRefreshes}`);
 
       await sendMessage({
         type: 'complete',
@@ -162,6 +197,7 @@ export async function POST(request: NextRequest) {
         failedRefreshes
       } as CompleteMessage);
     } catch (error) {
+      console.error('Error in start function:', error);
       await sendMessage({ type: 'error', message: error instanceof Error ? error.message : 'An unknown error occurred' } as ErrorMessage);
     } finally {
       if (!writerClosed) {
