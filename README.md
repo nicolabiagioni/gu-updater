@@ -7,22 +7,22 @@
 <br />
 
 <p align="center">
-  <a href="https://github.com/nicolabiagioni/gu-updater/actions/workflows/ci.yml">
-    <img src="https://img.shields.io/github/actions/workflow/status/nicolabiagioni/gu-updater/ci.yml?style=for-the-badge" alt="GitHub Actions Workflow Status" />
+  <a href="https://github.com/nicolabiagioni/gu-updater/actions/workflows/ci.yml" aria-label="GitHub Actions Workflow Status">
+    <img src="https://img.shields.io/github/actions/workflow/status/nicolabiagioni/gu-updater/ci.yml?style=for-the-badge">
   </a>
-  <a href="https://github.com/nicolabiagioni/gu-updater/releases">
-    <img src="https://img.shields.io/github/v/release/nicolabiagioni/gu-updater?include_prereleases&style=for-the-badge" alt="Version" />
+  <a href="https://github.com/nicolabiagioni/gu-updater/releases" aria-label="GitHub Releases">
+    <img src="https://img.shields.io/github/v/release/nicolabiagioni/gu-updater?include_prereleases&style=for-the-badge">
   </a>
-  <a href="https://github.com/nicolabiagioni/gu-updater/tags">
-    <img src="https://img.shields.io/github/v/tag/nicolabiagioni/gu-updater?style=for-the-badge" alt="Tags" />
+  <a href="https://github.com/nicolabiagioni/gu-updater/tags" aria-label="GitHub Tags">
+    <img src="https://img.shields.io/github/v/tag/nicolabiagioni/gu-updater?style=for-the-badge">
   </a>
-  <a href="https://github.com/nicolabiagioni/gu-updater/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/nicolabiagioni/gu-updater?style=for-the-badge" alt="MIT License" />
+  <a href="https://github.com/nicolabiagioni/gu-updater/blob/main/LICENSE" aria-label="MIT License">
+    <img src="https://img.shields.io/github/license/nicolabiagioni/gu-updater?style=for-the-badge">
   </a>
 </p>
 
 <p align="center">
-  <a href="https://your-demo-link.com">View Demo</a>
+  <a href="https://gu-updater.vercel.app/">View Demo</a>
   <a href="https://github.com/nicolabiagioni/gu-updater/issues">Report Bug</a>
   <a href="https://github.com/nicolabiagioni/gu-updater/issues">Request Feature</a>
 </p>
